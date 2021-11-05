@@ -7,10 +7,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.leonardofadul.meetingroom.domain.City;
 import com.leonardofadul.meetingroom.domain.Company;
 import com.leonardofadul.meetingroom.domain.MeetingRoom;
+import com.leonardofadul.meetingroom.domain.State;
+import com.leonardofadul.meetingroom.repositories.CityRepository;
 import com.leonardofadul.meetingroom.repositories.CompanyRepository;
 import com.leonardofadul.meetingroom.repositories.MeetingRoomRepository;
+import com.leonardofadul.meetingroom.repositories.StateRepository;
 
 @SpringBootApplication
 public class MeetingRoomApplication implements CommandLineRunner{
@@ -20,6 +24,12 @@ public class MeetingRoomApplication implements CommandLineRunner{
 	
 	@Autowired
 	private MeetingRoomRepository meetingRoomRepository;
+	
+	@Autowired
+	private StateRepository stateRepository;
+	
+	@Autowired
+	private CityRepository cityRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MeetingRoomApplication.class, args);
@@ -57,5 +67,21 @@ public class MeetingRoomApplication implements CommandLineRunner{
 		
 		companyRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
 		meetingRoomRepository.saveAll(Arrays.asList(mr1, mr2, mr3, mr4, mr5, mr6, mr7, mr8));
+	
+		State st1 = new State(null, "São Paulo");
+		State st2 = new State(null, "Minas Gerais");
+		State st3 = new State(null, "Rio de Janeiro");
+		
+		City ct1 = new City(null, "Uberlândia", st2);
+		City ct2 = new City(null, "São Paulo", st1);
+		City ct3 = new City(null, "Rio de Janeiro", st3);
+		City ct4 = new City(null, "Campinas", st2);
+		
+		st1.getCities().addAll(Arrays.asList(ct2, ct4));
+		st2.getCities().add(ct1);
+		st3.getCities().add(ct3);
+		
+		stateRepository.saveAll(Arrays.asList(st1, st2, st3));
+		cityRepository.saveAll(Arrays.asList(ct1, ct2, ct3, ct4));
 	}
 }
