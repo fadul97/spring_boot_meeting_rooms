@@ -8,13 +8,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.leonardofadul.meetingroom.domain.Company;
+import com.leonardofadul.meetingroom.domain.MeetingRoom;
 import com.leonardofadul.meetingroom.repositories.CompanyRepository;
+import com.leonardofadul.meetingroom.repositories.MeetingRoomRepository;
 
 @SpringBootApplication
 public class MeetingRoomApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CompanyRepository companyRepository;
+	
+	@Autowired
+	private MeetingRoomRepository meetingRoomRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MeetingRoomApplication.class, args);
@@ -27,6 +32,30 @@ public class MeetingRoomApplication implements CommandLineRunner{
 		Company c3 = new Company(3, "Company 3", "company3");
 		Company c4 = new Company(4, "Company 4", "company4");
 		
-		companyRepository.saveAll(Arrays.asList(c1, c2, c3, c4));	
+		MeetingRoom mr1 = new MeetingRoom(null, "Room 1", true, true, true, true, 10, 150.00);
+		MeetingRoom mr2 = new MeetingRoom(null, "Room 2", false, false, false, false, 2, 40.00);
+		MeetingRoom mr3 = new MeetingRoom(null, "Room 3", true, false, true, false, 3, 60.00);
+		MeetingRoom mr4 = new MeetingRoom(null, "Room 4", false, true, true, false, 5, 70.00);
+		MeetingRoom mr5 = new MeetingRoom(null, "Room 5", true, false, false, true, 6, 80.00);
+		MeetingRoom mr6 = new MeetingRoom(null, "Room 6", true, true, true, false, 5, 100.00);
+		MeetingRoom mr7 = new MeetingRoom(null, "Room 7", true, true, false, false, 7, 90.00);
+		MeetingRoom mr8 = new MeetingRoom(null, "Room 8", true, true, true, false, 8, 110.00);
+		
+		c1.getRooms().addAll(Arrays.asList(mr3, mr5));
+		c2.getRooms().addAll(Arrays.asList(mr1, mr6));
+		c3.getRooms().add(mr2);
+		c4.getRooms().addAll(Arrays.asList(mr4, mr7, mr8));
+		
+		mr1.setCompany(c2);
+		mr2.setCompany(c3);
+		mr3.setCompany(c1);
+		mr4.setCompany(c4);
+		mr5.setCompany(c1);
+		mr6.setCompany(c2);
+		mr7.setCompany(c4);
+		mr8.setCompany(c4);
+		
+		companyRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
+		meetingRoomRepository.saveAll(Arrays.asList(mr1, mr2, mr3, mr4, mr5, mr6, mr7, mr8));
 	}
 }

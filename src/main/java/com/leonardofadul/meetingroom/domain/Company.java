@@ -1,12 +1,15 @@
 package com.leonardofadul.meetingroom.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Company implements Serializable{
@@ -18,6 +21,9 @@ public class Company implements Serializable{
 	
 	private String name;
 	private String password;
+	
+	@OneToMany(mappedBy = "company")
+	private List<MeetingRoom> rooms = new ArrayList<>();
 	
 	public Company(){
 	}
@@ -51,6 +57,14 @@ public class Company implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<MeetingRoom> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<MeetingRoom> rooms) {
+		this.rooms = rooms;
 	}
 
 	@Override
