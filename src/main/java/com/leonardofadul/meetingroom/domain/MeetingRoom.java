@@ -8,10 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class MeetingRoom implements Serializable{
@@ -29,13 +26,8 @@ public class MeetingRoom implements Serializable{
 	private Integer size;
 	private Double price;
 	
-	@JsonManagedReference
 	@ManyToOne
-	@JoinTable(
-			name = "ROOM_COMPANY",
-			joinColumns = @JoinColumn(name = "room_id"),
-			inverseJoinColumns = @JoinColumn(name = "company_id")
-	)
+	@JoinColumn(name = "company_id")
 	private Company company;
 	
 	public MeetingRoom() {

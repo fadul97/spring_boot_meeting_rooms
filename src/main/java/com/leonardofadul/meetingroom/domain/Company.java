@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Company implements Serializable{
@@ -24,7 +24,7 @@ public class Company implements Serializable{
 	private String name;
 	private String password;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "company")
 	private List<MeetingRoom> rooms = new ArrayList<>();
 	
