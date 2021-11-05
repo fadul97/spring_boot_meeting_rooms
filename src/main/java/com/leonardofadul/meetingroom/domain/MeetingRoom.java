@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class MeetingRoom implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -27,6 +29,7 @@ public class MeetingRoom implements Serializable{
 	private Integer size;
 	private Double price;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinTable(
 			name = "ROOM_COMPANY",
