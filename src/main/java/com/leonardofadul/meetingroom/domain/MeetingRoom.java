@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MeetingRoom implements Serializable{
@@ -30,11 +31,14 @@ public class MeetingRoom implements Serializable{
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
+	@OneToOne
+	private Address address;
+	
 	public MeetingRoom() {
 	}
 
 	public MeetingRoom(Integer id, String name, Boolean airConditioner, Boolean blackBoard, Boolean television,
-			Boolean wifi, Integer size, Double price) {
+			Boolean wifi, Integer size, Double price, Address address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,6 +48,7 @@ public class MeetingRoom implements Serializable{
 		this.wifi = wifi;
 		this.size = size;
 		this.price = price;
+		this.address = address;
 	}
 
 	public Integer getId() {
@@ -109,8 +114,6 @@ public class MeetingRoom implements Serializable{
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-
-	
 	
 	public Double getPrice() {
 		return price;
@@ -118,6 +121,14 @@ public class MeetingRoom implements Serializable{
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override
