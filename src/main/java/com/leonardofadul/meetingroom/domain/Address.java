@@ -28,6 +28,10 @@ public class Address implements Serializable{
 	@JoinColumn(name = "city_id")
 	private City city;
 	
+	// In case the Address needs a reference to its room
+	//@OneToOne(cascade = CascadeType.ALL)
+	//private MeetingRoom room;
+	
 	public Address() {
 	}
 
