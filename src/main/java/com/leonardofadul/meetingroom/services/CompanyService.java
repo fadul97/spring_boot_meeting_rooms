@@ -19,4 +19,9 @@ public class CompanyService {
 		Optional<Company> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Object now found! Id: " + id + ". Type: " + Company.class.getName()));
 	}
+	
+	public Company insert(Company obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
 }
